@@ -21,9 +21,9 @@ Potential words remaining : 3
 Play the word : Some(WordValue { word: "brick", value: 6 })
 Enter result
 gggbb
-Potential words remaining : 3
-Play the word : Some(WordValue { word: "brick", value: 6 })
+Potential words remaining : 1
+Play the word : Some(WordValue { word: "brine", value: -1 })
 Enter result
-gggbb
+ggggg
 Result obtained in 4 tries
 ```
