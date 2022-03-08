@@ -189,7 +189,7 @@ fn main() {
             }
             if input_char_vec[i] == 'y' {
                 for j in 0..5 {
-                    if letter_array[j][ch] != LetterColor::Green ||  letter_array[j][ch] != LetterColor::Black {
+                    if letter_array[j][ch] != LetterColor::Green &&  letter_array[j][ch] != LetterColor::Black {
                         letter_array[j][ch] = LetterColor::Yellow
                     }
                 }
