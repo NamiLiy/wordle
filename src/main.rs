@@ -5,6 +5,7 @@ use std::collections::LinkedList;
 use std::fs::File;
 use std::io::{self, BufRead};
 use std::path::Path;
+use std::cmp::Reverse;
 
 
 
@@ -40,7 +41,7 @@ impl Ord for WordValue {
 // `PartialOrd` needs to be implemented as well.
 impl PartialOrd for WordValue {
     fn partial_cmp(&self, other: &WordValue) -> Option<Ordering> {
-        Some(self.cmp(other))
+        Some(other.cmp(self))
     }
 }
 
@@ -66,90 +67,92 @@ fn main() {
 
     for tries in 0..6 {
 
-        let mut char_value = vec![vec![0i32; 26]; 6];
+        // let mut char_value = vec![vec![0i32; 26]; 6];
 
-        for element in potential_list.iter() {
-            let char_vec: Vec<char> = element.clone().chars().collect();
-            let ch = char_vec[0] as usize - 97;
-            char_value[0][ch] += 1;
-            let ch = char_vec[1] as usize - 97;
-            char_value[1][ch] += 1;
-            let ch = char_vec[2] as usize - 97;
-            char_value[2][ch] += 1;
-            let ch = char_vec[3] as usize - 97;
-            char_value[3][ch] += 1;
-            let ch = char_vec[4] as usize - 97;
-            char_value[4][ch] += 1;
-        }
+        // for element in potential_list.iter() {
+        //     let char_vec: Vec<char> = element.clone().chars().collect();
+        //     let ch = char_vec[0] as usize - 97;
+        //     char_value[0][ch] += 1;
+        //     let ch = char_vec[1] as usize - 97;
+        //     char_value[1][ch] += 1;
+        //     let ch = char_vec[2] as usize - 97;
+        //     char_value[2][ch] += 1;
+        //     let ch = char_vec[3] as usize - 97;
+        //     char_value[3][ch] += 1;
+        //     let ch = char_vec[4] as usize - 97;
+        //     char_value[4][ch] += 1;
+        // }
     
-        for i in 0..26 {
-            char_value[5][i] = char_value[0][i] + char_value[1][i] + char_value[2][i] + char_value[3][i] + char_value[4][i];
-        }
+        // for i in 0..26 {
+        //     char_value[5][i] = char_value[0][i] + char_value[1][i] + char_value[2][i] + char_value[3][i] + char_value[4][i];
+        // }
     
         let mut heap = BinaryHeap::new();
     
         for element in total_list.iter() {
-            let mut total = 0;
-            let char_vec: Vec<char> = element.clone().chars().collect();
-            let ch = char_vec[0] as usize - 97;
+            // let mut total = 0;
+            // let char_vec: Vec<char> = element.clone().chars().collect();
+            // let ch = char_vec[0] as usize - 97;
 
-            if letter_array[0][ch] != LetterColor::Green {
-                total += char_value[0][ch];
-            }
-            if !selected_letter_list.iter().any(|&t| t==char_vec[0]) {
-                total += char_value[5][ch];
-            }
+            // if letter_array[0][ch] != LetterColor::Green {
+            //     total += char_value[0][ch];
+            // }
+            // if !selected_letter_list.iter().any(|&t| t==char_vec[0]) {
+            //     total += char_value[5][ch];
+            // }
 
 
-            let ch = char_vec[1] as usize - 97;
+            // let ch = char_vec[1] as usize - 97;
 
-            if letter_array[1][ch] != LetterColor::Green {
-                total += char_value[1][ch];
-            }
-            if !selected_letter_list.iter().any(|&t| t==char_vec[1]) {
-                if char_vec[0] != char_vec[1] {
-                    total += char_value[5][ch];
-                }
-            }
+            // if letter_array[1][ch] != LetterColor::Green {
+            //     total += char_value[1][ch];
+            // }
+            // if !selected_letter_list.iter().any(|&t| t==char_vec[1]) {
+            //     if char_vec[0] != char_vec[1] {
+            //         total += char_value[5][ch];
+            //     }
+            // }
 
             
-            let ch = char_vec[2] as usize - 97;
+            // let ch = char_vec[2] as usize - 97;
 
-            if letter_array[2][ch] != LetterColor::Green {
-                total += char_value[2][ch];
-            }
-            if !selected_letter_list.iter().any(|&t| t==char_vec[2]) {
-                if char_vec[0] != char_vec[2] && char_vec[1] != char_vec[2] {
-                    total += char_value[5][ch];
-                }
-            }
+            // if letter_array[2][ch] != LetterColor::Green {
+            //     total += char_value[2][ch];
+            // }
+            // if !selected_letter_list.iter().any(|&t| t==char_vec[2]) {
+            //     if char_vec[0] != char_vec[2] && char_vec[1] != char_vec[2] {
+            //         total += char_value[5][ch];
+            //     }
+            // }
 
-            let ch = char_vec[3] as usize - 97;
+            // let ch = char_vec[3] as usize - 97;
 
-            if letter_array[3][ch] != LetterColor::Green {
-                total += char_value[3][ch];
-            }
-            if !selected_letter_list.iter().any(|&t| t==char_vec[3]) {
-                if char_vec[0] != char_vec[3] && char_vec[1] != char_vec[3] && char_vec[2] != char_vec[3] {
-                    total += char_value[5][ch];
-                }
-            }
+            // if letter_array[3][ch] != LetterColor::Green {
+            //     total += char_value[3][ch];
+            // }
+            // if !selected_letter_list.iter().any(|&t| t==char_vec[3]) {
+            //     if char_vec[0] != char_vec[3] && char_vec[1] != char_vec[3] && char_vec[2] != char_vec[3] {
+            //         total += char_value[5][ch];
+            //     }
+            // }
 
-            let ch = char_vec[4] as usize - 97;
+            // let ch = char_vec[4] as usize - 97;
 
-            if letter_array[4][ch] != LetterColor::Green {
-                total += char_value[4][ch];
-            }
-            if !selected_letter_list.iter().any(|&t| t==char_vec[4]) {
-                if char_vec[0] != char_vec[4] && char_vec[1] != char_vec[4] && char_vec[2] != char_vec[4] && char_vec[3] != char_vec[4]{
-                    total += char_value[5][ch];
-                }
-            }
+            // if letter_array[4][ch] != LetterColor::Green {
+            //     total += char_value[4][ch];
+            // }
+            // if !selected_letter_list.iter().any(|&t| t==char_vec[4]) {
+            //     if char_vec[0] != char_vec[4] && char_vec[1] != char_vec[4] && char_vec[2] != char_vec[4] && char_vec[3] != char_vec[4]{
+            //         total += char_value[5][ch];
+            //     }
+            // }
 
-            heap.push(WordValue { word: element.clone(), value : total});
+            let total = get_entropy(element.clone(), &potential_list);
+
+            heap.push(WordValue { word: element.clone(), value : total as i32});
         }
     
-        println!("{:?}", char_value);
+        // println!("{:?}", char_value);
     
         println!("Potential words remaining : {}", potential_list.len());
 
@@ -220,6 +223,54 @@ fn main() {
 
     
 }
+
+fn get_entropy(word: String, potential_list: &LinkedList<String>) -> usize {
+    let word_vec: Vec<char> = word.clone().chars().collect();
+   
+    let mut entropy_arr = vec![0usize; 243];
+
+    for element in potential_list {
+        let mut result = 0;
+        let element_vec: Vec<char> = element.clone().chars().collect();
+        if word_vec[0] == element_vec[0] {
+            result = result + 162;
+        } else if word_vec[0] == element_vec[1] || word_vec[0] == element_vec[2] || word_vec[0] == element_vec[3] || word_vec[0] == element_vec[4] {
+            result = result + 81;
+        }
+        if word_vec[1] == element_vec[1] {
+            result = result + 54;
+        } else if word_vec[1] == element_vec[0] || word_vec[1] == element_vec[2] || word_vec[1] == element_vec[3] || word_vec[1] == element_vec[4] {
+            result = result + 27;
+        }
+        if word_vec[2] == element_vec[2] {
+            result = result + 18;
+        } else if word_vec[2] == element_vec[0] || word_vec[2] == element_vec[1] || word_vec[2] == element_vec[3] || word_vec[2] == element_vec[4] {
+            result = result + 9;
+        }
+        if word_vec[3] == element_vec[3] {
+            result = result + 6;
+        } else if word_vec[3] == element_vec[0] || word_vec[3] == element_vec[1] || word_vec[3] == element_vec[2] || word_vec[2] == element_vec[4] {
+            result = result + 3;
+        }
+        if word_vec[4] == element_vec[4] {
+            result = result + 2;
+        } else if word_vec[4] == element_vec[0] || word_vec[4] == element_vec[1] || word_vec[4] == element_vec[2] || word_vec[4] == element_vec[3] {
+            result = result + 1;
+        }
+        entropy_arr[result] = entropy_arr[result] + 1;
+    }
+
+    let mut entropy = 0.0_f64;
+    for i in 0..243{
+        if entropy_arr[i] > 0 {
+            let mut lgv = (entropy_arr[i] as f64).log2();
+            lgv = lgv * entropy_arr[i] as f64;
+            entropy = entropy + lgv;
+        }
+    }
+    entropy.floor() as usize
+}
+
 
 fn remove_word(word: String, selected_letter_list: &LinkedList<char>, letter_array: &Vec<Vec<LetterColor>>) -> bool {
     let char_vec: Vec<char> = word.clone().chars().collect();
