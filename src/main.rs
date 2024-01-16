@@ -1,4 +1,4 @@
-#![feature(drain_filter)]
+#![feature(extract_if)]
 use std::collections::LinkedList;
 
 
@@ -212,7 +212,7 @@ fn main() {
         println!("{:?}", letter_array);
         println!("{:?}", selected_letter_list);
     
-        let _p = potential_list.drain_filter(|word| remove_word(word.clone(), &selected_letter_list, &letter_array)).collect::<LinkedList<_>>();
+        let _p = potential_list.extract_if(|word| remove_word(word.clone(), &selected_letter_list, &letter_array)).collect::<LinkedList<_>>();
 
     } 
 
